@@ -1,11 +1,26 @@
 <launch>
-  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch"/>
+  <!-- Include the gazebo launch file -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_world.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
 
-  <!-- First TurtleBot -->
-  <node name="spawn_turtlebot1" pkg="gazebo_ros" type="spawn_model" output="screen"
-        args="-file $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf -urdf -x 0 -y 0 -z 0 -model turtlebot1"/>
+  <!-- Spawn TurtleBot3 Burger 1 -->
+  <group ns="tb3_1">
+    <param name="robot_description" command="$(find xacro)/xacro '$(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro'"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model tb3_1 -param robot_description -x 0 -y 0 -z 0.01"/>
+  </group>
 
-  <!-- Second TurtleBot -->
-  <node name="spawn_turtlebot2" pkg="gazebo_ros" type="spawn_model" output="screen"
-        args="-file $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf -urdf -x 10 -y 10 -z 0 -model turtlebot2"/>
+  <!-- Spawn TurtleBot3 Burger 2 -->
+  <group ns="tb3_2">
+    <param name="robot_description" command="$(find xacro)/xacro '$(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro'"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model tb3_2 -param robot_description -x 1 -y 0 -z 0.01"/>
+  </group>
+  
 </launch>
