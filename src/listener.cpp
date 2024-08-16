@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-#include <std_msgs/String.h>
+#include <nav_msgs/Odometry.h>
 
 void odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
   
@@ -19,9 +19,9 @@ void odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
   double pose_y = msg->pose.pose.position.y;
   double pose_z = msg->pose.pose.position.z;
 
-  ROS_INFO('linear_vel: x=%.3f, y=%.3f, z=%.3f',pose_x,pose_y, pose_z);
-  ROS_INFO("Angular_vel: x=%.3f, y=%.3f, z=%.3f", angular_x, angular_y, angular_z);
-  ROS_INFO("Position: x=%.3f, y=%.3f, z=%.3f", pose_x, pose_y, pose_z);
+  ROS_INFO("linear_vel: x=%.2f, y=%.2f, z=%.2f",pose_x,pose_y, pose_z);
+  ROS_INFO("Angular_vel: x=%.2f, y=%.2f, z=%.2f", angular_x, angular_y, angular_z);
+  ROS_INFO("Position: x=%.2f, y=%.2f, z=%.2f\n", pose_x, pose_y, pose_z);
 } 
 
 int main(int argc, char** argv)
