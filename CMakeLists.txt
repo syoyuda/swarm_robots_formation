@@ -24,5 +24,6 @@ include
 
 
 add_executable( relative_distance_calculator src/relative_distance_calculator )
-
+add_executable( listener src/listenner )
 target_link_libraries(relative_distance_calculator  ${catkin_LIBRARIES} )
+target_link_libraries(listener  ${catkin_LIBRARIES} )
